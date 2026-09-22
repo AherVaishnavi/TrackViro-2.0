@@ -1,0 +1,34 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Java
+*.class
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+application-local.properties
+application-prod.properties
+
+# Uploaded files
+uploads/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Build output
+build/
+dist/
