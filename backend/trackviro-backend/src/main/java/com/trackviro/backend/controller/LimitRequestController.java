@@ -5,6 +5,7 @@ import com.trackviro.backend.dto.limitrequest.FinanceApproveRequest;
 import com.trackviro.backend.dto.limitrequest.LimitRequestResponse;
 import com.trackviro.backend.security.AuthUtil;
 import com.trackviro.backend.service.LimitRequestService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ import java.util.List;
  * the check.
  */
 @RestController
+@Tag(name = "Limit Requests", description = "Manager and Finance actions on limit-increase requests. Role required per endpoint prefix (/api/manager/** or /api/finance/**).")
 public class LimitRequestController {
 
     private final LimitRequestService limitRequestService;

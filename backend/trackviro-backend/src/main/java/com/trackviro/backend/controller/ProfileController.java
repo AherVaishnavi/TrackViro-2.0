@@ -9,6 +9,7 @@ import com.trackviro.backend.exception.BusinessRuleException;
 import com.trackviro.backend.security.AuthUtil;
 import com.trackviro.backend.service.ProfileService;
 import com.trackviro.backend.storage.FileStorageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api/profile")
+@Tag(name = "Profile", description = "Requires any authenticated role (EMPLOYEE, MANAGER, or FINANCE). Own profile, password, OTP.")
 public class ProfileController {
 
     private final ProfileService profileService;

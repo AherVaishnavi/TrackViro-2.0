@@ -3,6 +3,7 @@ package com.trackviro.backend.controller;
 import com.trackviro.backend.dto.user.UserCreateRequest;
 import com.trackviro.backend.dto.user.UserResponse;
 import com.trackviro.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/finance/users")
+@Tag(name = "Finance", description = "Requires role FINANCE. Global (unrestricted) final approval, reimbursement, analytics, dashboard.")
 public class UserController {
 
     private final UserService userService;

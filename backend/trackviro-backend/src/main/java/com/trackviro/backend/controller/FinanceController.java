@@ -8,6 +8,7 @@ import com.trackviro.backend.security.AuthUtil;
 import com.trackviro.backend.service.ExpenseService;
 import com.trackviro.backend.service.LimitRequestService;
 import com.trackviro.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/finance")
+@Tag(name = "Finance", description = "Requires role FINANCE. Global (unrestricted) final approval, reimbursement, analytics, dashboard.")
 public class FinanceController {
 
     private final ExpenseService expenseService;

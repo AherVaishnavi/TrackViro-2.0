@@ -1,5 +1,6 @@
 package com.trackviro.backend.controller;
 
+import com.trackviro.backend.dto.category.CategoryResponse;
 import com.trackviro.backend.dto.common.ApiMessage;
 import com.trackviro.backend.dto.common.ChartData;
 import com.trackviro.backend.dto.expense.ExpenseRequest;
@@ -9,6 +10,7 @@ import com.trackviro.backend.dto.limitrequest.LimitRequestResponse;
 import com.trackviro.backend.dto.user.UserResponse;
 import java.util.List;
 import com.trackviro.backend.security.AuthUtil;
+import com.trackviro.backend.service.CategoryService;
 import com.trackviro.backend.service.ExpenseService;
 import com.trackviro.backend.service.LimitRequestService;
 import jakarta.validation.Valid;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.trackviro.backend.storage.FileStorageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,21 +39,45 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/employee")
+@Tag(name = "Employee", description = "Requires role EMPLOYEE. Expenses, limit requests, analytics, dashboard.")
 public class EmployeeController {
 
     private final ExpenseService expenseService;
     private final LimitRequestService limitRequestService;
     private final AuthUtil authUtil;
     private final FileStorageService fileStorageService;
+    private final CategoryService categoryService;
 
     public EmployeeController(ExpenseService expenseService,
                               LimitRequestService limitRequestService,
                               AuthUtil authUtil,
-                              FileStorageService fileStorageService) {
+                              FileStorageService fileStorageService,
+                              CategoryService categoryService) {
         this.expenseService = expenseService;
         this.limitRequestService = limitRequestService;
         this.authUtil = authUtil;
         this.fileStorageService = fileStorageService;
+        this.categoryService = categoryService;
+    }
+
+    /**
+     * ADDED for Step 8 (React frontend). Read-only, hasRole("EMPLOYEE")
+     * via the existing "/api/employee/**" URL rule.
+     *
+     * Gap found while building the Submit Expense page: the only
+     * category listing endpoint (GET /api/finance/categories, Step 6)
+     * is hasRole("FINANCE"), so an employee had no way to populate the
+     * category dropdown their own expense form needs. The old
+     * Thymeleaf app never hit this problem because
+     * EmployeeController.submitForm() called CategoryService directly
+     * with no role check of its own. This restores that same access,
+     * scoped correctly this time: employees can read categories, only
+     * finance can create them (CategoryController's POST is unchanged).
+     * CategoryService itself was not modified.
+     */
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryResponse>> getCategories() {
+        return ResponseEntity.ok(categoryService.getAll());
     }
 
     // ── Expenses ──────────────────────────────────────────────

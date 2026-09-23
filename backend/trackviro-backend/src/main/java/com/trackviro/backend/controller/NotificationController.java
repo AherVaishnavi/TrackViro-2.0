@@ -4,6 +4,7 @@ import com.trackviro.backend.dto.common.ApiMessage;
 import com.trackviro.backend.dto.notification.NotificationResponse;
 import com.trackviro.backend.security.AuthUtil;
 import com.trackviro.backend.service.NotificationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/employee/notifications")
+@Tag(name = "Employee", description = "Requires role EMPLOYEE. Expenses, limit requests, analytics, dashboard.")
 public class NotificationController {
 
     private final NotificationService notificationService;

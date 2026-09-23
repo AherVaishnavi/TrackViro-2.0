@@ -13,6 +13,7 @@ import com.trackviro.backend.security.AuthUtil;
 import com.trackviro.backend.security.CustomUserDetails;
 import com.trackviro.backend.security.JwtUtil;
 import com.trackviro.backend.service.ProfileService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "Public: login, current user, forgot-password/OTP. No token required.")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
