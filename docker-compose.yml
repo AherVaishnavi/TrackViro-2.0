@@ -1,0 +1,42 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: trackviro-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: trackviro
+      MYSQL_ROOT_PASSWORD: trackviro_root
+    ports:
+      - "3307:3306"
+    volumes:
+      - trackviro-mysql-data:/var/lib/mysql
+
+  backend:
+    image: trackviro-backend:1.0
+    container_name: trackviro-backend
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: trackviro
+      DB_USERNAME: root
+      DB_PASSWORD: trackviro_root
+      JWT_SECRET: Y2hhbmdlLW1lLXRoaXMtYS1kZXYtb25seS10cmFja3Zpcm8ta2V5LTEyMzQ1Njc4
+      JWT_EXPIRATION_MS: 86400000
+      CORS_ORIGINS: http://localhost:5173
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: trackviro-frontend:1.0
+    container_name: trackviro-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+volumes:
+  trackviro-mysql-data:
