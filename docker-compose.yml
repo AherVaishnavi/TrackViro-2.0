@@ -13,6 +13,8 @@ services:
       - trackviro-mysql-data:/var/lib/mysql
 
   backend:
+    build:
+      context: ./backend/trackviro-backend
     image: trackviro-backend:1.0
     container_name: trackviro-backend
     restart: unless-stopped
@@ -31,6 +33,8 @@ services:
       - "8080:8080"
 
   frontend:
+    build:
+      context: ./frontend
     image: trackviro-frontend:1.0
     container_name: trackviro-frontend
     restart: unless-stopped
@@ -38,5 +42,6 @@ services:
       - backend
     ports:
       - "5173:80"
+
 volumes:
   trackviro-mysql-data:
