@@ -4,7 +4,7 @@ import axios from "axios";
 // controller's @RequestMapping — confirmed by reading the actual Step
 // 6/7 controllers, not guessed).
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "/api",
 });
 
 // Attaches "Authorization: Bearer <token>" to every request automatically.
