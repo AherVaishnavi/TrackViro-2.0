@@ -1,4 +1,4 @@
-# TrackViro – Corporate Expense Management System
+# TrackViro – Corporate Expense Tracker
 
 TrackViro is a full-stack corporate expense management system built to simplify and automate employee expense submission, approval, validation, notification, and reimbursement processes.
 
